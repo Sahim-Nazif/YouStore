@@ -2,6 +2,12 @@ import Catalog from '../../features/catalog/Catalog'
 import { Container, createTheme,CssBaseline, Switch, ThemeProvider } from "@mui/material";
 import Header from './Header'
 import { useState } from 'react';
+import { Route } from 'react-router-dom';
+import HomePage from '../../features/home/HomePage'
+import ProductDetails from '../../features/catalog/Catalog'
+import AboutPage from '../../features/about/AboutPage'
+import ContactPage from '../../features/contact/ContactPage'
+
 
 const App = () => {
 
@@ -27,7 +33,11 @@ const theme=createTheme({
       <CssBaseline />
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
       <Container>
-        <Catalog />
+       <Route exact path='/' component={HomePage}/>
+       <Route exact path='/catalog' component={Catalog}/>
+       <Route exact path='/catalog/:id' component={ProductDetails}/>
+       <Route exact path='/about' component={AboutPage}/>
+       <Route exact path='/contact' component={ContactPage}/>
       </Container>
     </ThemeProvider>
     </>
