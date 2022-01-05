@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@mui/material'
 import { Product } from '../../app/layout/models/product'
 
@@ -40,7 +40,7 @@ const ProductCard = ({ product }: Props) => {
                 </CardContent>
                 <CardActions>
                     <Button size="small">Add to Card</Button>
-                    <Button size="small">View</Button>
+                    <Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button>
                 </CardActions>
             </Card>
 

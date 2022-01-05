@@ -4,7 +4,7 @@ import Header from './Header'
 import { useState } from 'react';
 import { Route } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage'
-import ProductDetails from '../../features/catalog/Catalog'
+import ProductDetails from '../../features/catalog/ProductDetails'
 import AboutPage from '../../features/about/AboutPage'
 import ContactPage from '../../features/contact/ContactPage'
 
