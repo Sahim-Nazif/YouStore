@@ -32,7 +32,12 @@ const Header = ({darkMode, handleThemeChange}:Props) => {
                         <ListItem component={NavLink}
                                   to={path}
                                   key={path}
-                                  sx={{color:'inherit', typography:'body1'}}
+                                  sx={{color:'inherit', typography:'body1', '&:hover':{
+                                    color:'grey.500'
+                                  }, 
+                                   '&.active':{
+                                       color:'text.secondary'
+                                   }}}
                                   >
                             {title.toUpperCase()}
                         </ListItem>
@@ -48,7 +53,12 @@ const Header = ({darkMode, handleThemeChange}:Props) => {
                         <ListItem component={NavLink}
                                   to={path}
                                   key={path}
-                                  sx={{color:'inherit', typography:'body1'}}
+                                  sx={{color:'inherit', typography:'body1','&:hover':{
+                                    color:'grey.500'
+                                }, 
+                                 '&.active':{
+                                     color:'text.secondary'
+                                 }}}
                                   >
                             {title.toUpperCase()}
                         </ListItem>
