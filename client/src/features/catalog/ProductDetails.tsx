@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { Product } from '../../app/layout/models/product'
 import axios from 'axios'
 import { useParams } from "react-router-dom"
-
+import  agent from '../../app/api/agent'
 
 
 const ProductDetails = () => {
@@ -14,8 +14,8 @@ const ProductDetails = () => {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:5000/api/products/${id}`)
-            .then(response => setProduct(response.data))
+        agent.Catalog.details(parseInt(id))
+            .then(response => setProduct(response))
             .catch(error => console.log(error))
             .finally(() => setLoading(false))
     }, [id])

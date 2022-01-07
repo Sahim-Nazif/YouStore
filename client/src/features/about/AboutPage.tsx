@@ -1,14 +1,18 @@
-import {Typography} from '@mui/material'
+import { Button, ButtonGroup, Container, Typography } from '@mui/material'
 
 import React from 'react'
 
 const AboutPage = () => {
     return (
-            <Typography variant='h2'>
-                About Page
+        <Container>
+            <Typography gutterBottom variant='h2'> Error for testing purpose</Typography>
 
-            </Typography>
- )
+            <ButtonGroup>
+                <Button variant='contained'>Test 400</Button>
+            </ButtonGroup>
+        </Container>
+
+    )
 }
 
 export default AboutPage
