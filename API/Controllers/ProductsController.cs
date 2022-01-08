@@ -29,7 +29,11 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>>GetProduct(int id)
         {
-            return await _context.products.FindAsync(id);
+            var product= await _context.products.FindAsync(id);
+
+            if (product == null) return NotFound();
+            return product;
+
         }
     }
 }

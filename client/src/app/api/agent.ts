@@ -23,7 +23,7 @@ const Catalog={
 
 const TestErrors={
     get400Error:()=>requests.get('exception/bad-request'),
-    get4010Error:()=>requests.get('exception/unauthorized'),
+    get401Error:()=>requests.get('exception/unauthorized'),
     get404Error:()=>requests.get('exception/not-found'),
     get500Error:()=>requests.get('exception/server-error'),
     getValidationError:()=>requests.get('exception/validation-error')
