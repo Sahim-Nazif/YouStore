@@ -41,6 +41,7 @@ const theme=createTheme({
        <Route exact path='/catalog/:id' component={ProductDetails}/>
        <Route exact path='/about' component={AboutPage}/>
        <Route exact path='/contact' component={ContactPage}/>
+     
       </Container>
       
     </ThemeProvider>
