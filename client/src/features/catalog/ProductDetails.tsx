@@ -4,6 +4,7 @@ import { Product } from '../../app/layout/models/product'
 import axios from 'axios'
 import { useParams } from "react-router-dom"
 import  agent from '../../app/api/agent'
+import NotFound from "../../app/errors/NotFound"
 
 
 const ProductDetails = () => {
@@ -21,7 +22,7 @@ const ProductDetails = () => {
     }, [id])
 
     if (loading) return <h3>Loading...</h3>
-    if (!product) return <h3>Product no found</h3>
+    if (!product) return <NotFound/>
     return (
 
         <Grid container spacing={6}>
