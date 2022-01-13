@@ -9,7 +9,7 @@ import AboutPage from '../../features/about/AboutPage'
 import ContactPage from '../../features/contact/ContactPage'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import ServerError from '../../app/errors/ServerError'
 
 
 const App = () => {
@@ -41,7 +41,7 @@ const theme=createTheme({
        <Route exact path='/catalog/:id' component={ProductDetails}/>
        <Route exact path='/about' component={AboutPage}/>
        <Route exact path='/contact' component={ContactPage}/>
-     
+       <Route exact path='/server-error' component={ServerError}/>
       </Container>
       
     </ThemeProvider>
