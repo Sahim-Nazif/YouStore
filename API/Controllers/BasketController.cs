@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -9,24 +10,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class BasketController:BaseApiController
+    public class BasketController : BaseApiController
     {
         private readonly StoreContext _context;
         public BasketController(StoreContext context)
         {
             this._context = context;
-            
+
         }
 
         [HttpGet]
         public async Task<ActionResult<Basket>> GetBasket()
         {
-            var basket=await _context.Baskets
-                        .Include(i=>i.Items)
-                        .ThenInclude(p=>p.Product)
-                        .FirstOrDefaultAsync(x=>x.BuyerId==Request.Cookies["BuyerId"]);
+            var basket = await RetrieveBasket();
 
-            if(basket==null){
+            if (basket == null)
+            {
                 return NotFound();
             }
 
@@ -34,10 +33,44 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult>AddItem(int productId, int quantity)
+        public async Task<ActionResult> AddItemToBasket(int productId, int quantity)
         {
-        
-            return StatusCode(201);
+
+            var basket=await RetrieveBasket();
+            if (basket==null) basket=CreateBasket();
+            var product=await _context.products.FindAsync(productId);
+            if (product==null) return NotFound();
+            basket.AddItem(product, quantity);
+
+             var result=await _context.SaveChangesAsync()>0;
+             if (result) return StatusCode(201);
+
+             return BadRequest(new ProblemDetails{Title="Problem saving item to basket"});
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> RemoveBasetItem(int productId, int quantity)
+        {
+
+            return Ok();
+        }
+        private async Task<Basket> RetrieveBasket()
+        {
+            return await _context.Baskets
+                         .Include(i => i.Items)
+                         .ThenInclude(p => p.Product)
+                         .FirstOrDefaultAsync(x => x.BuyerId == Request.Cookies["BuyerId"]);
+        }
+
+        private Basket CreateBasket()
+        {
+            var buyerId=Guid.NewGuid().ToString();
+            var cookieOptions=new CookieOptions {IsEssential=true, Expires=DateTime.Now.AddDays(30)};
+            Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+
+            var basket= new Basket{BuyerId=buyerId};
+            _context.Baskets.Add(basket);
+            return basket;
         }
     }
 }
