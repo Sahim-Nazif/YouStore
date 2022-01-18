@@ -9,6 +9,6 @@ namespace API.DTOs
     {
         public int Id { get;set;}
         public string buyerId{get;set;}
-        public List<BasketItemDto>Items{get;set;}
+        public List<BasketItemDto> Items {get;set;}
     }
 }
