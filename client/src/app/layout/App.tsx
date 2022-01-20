@@ -11,6 +11,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ServerError from '../../app/errors/ServerError'
 import NotFound from '../../app/errors/NotFound'
+import BasketPage from '../../features/basket/BasketPage'
+
 
 const App = () => {
 
@@ -43,6 +45,7 @@ const App = () => {
           <Route exact path='/about' component={AboutPage} />
           <Route exact path='/contact' component={ContactPage} />
           <Route exact path='/server-error' component={ServerError} />
+          <Route exact path='/basket' component={BasketPage} />
           <Route component={NotFound} />
         </Switch>
       </Container>

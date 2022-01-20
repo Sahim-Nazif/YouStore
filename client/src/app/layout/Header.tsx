@@ -1,7 +1,7 @@
 
 import { ShoppingCart } from '@mui/icons-material'
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 interface Props {
     darkMode:boolean;
@@ -24,7 +24,7 @@ const Header = ({darkMode, handleThemeChange}:Props) => {
             <Toolbar sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
 
                 <Box display='flex' alignItems='center'>
-                <Typography variant='h6' component={NavLink} to='/' exact
+                <Typography  variant='h6' component={NavLink} to='/' exact
                 sx={{color:'inherit', textDecoration:'none'}}>
                     YouStore
                 </Typography>
@@ -50,7 +50,7 @@ const Header = ({darkMode, handleThemeChange}:Props) => {
                 </List>
                 
                 <Box display='flex' alignItems='center'>
-                <IconButton sx={{color:'inherit'}}>
+                <IconButton component={Link} to='/basket' sx={{color:'inherit'}}>
                     <Badge badgeContent={4} color='secondary'>
                         <ShoppingCart/>
                     </Badge>
