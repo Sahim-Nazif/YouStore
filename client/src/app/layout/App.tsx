@@ -1,7 +1,7 @@
 import Catalog from '../../features/catalog/Catalog'
 import { Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Header from './Header'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage'
 import ProductDetails from '../../features/catalog/ProductDetails'
@@ -12,9 +12,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import ServerError from '../../app/errors/ServerError'
 import NotFound from '../../app/errors/NotFound'
 import BasketPage from '../../features/basket/BasketPage'
-
+import { useStoreContext } from '../context/StoreContext';
+import agent from '../api/agent';
+import {getCookie} from '../util/util'
 
 const App = () => {
+
+  const {setBasket}= useStoreContext()
+  const [loading, setLoading]=useState(true)
+
+  useEffect(() =>{
+
+    const buyerId=getCookie('buyerId')
+    if (buyerId) {
+      agent.Basket.get()
+            .then(basket=>setBasket(basket))
+            .catch(error=>console.log(error))
+    }  
+  })
 
   const [darkMode, setDarkMode] = useState(false)
   const paletteType = darkMode ? 'dark' : 'light'
@@ -55,4 +70,3 @@ const App = () => {
   );
 }
 
-export default App;
