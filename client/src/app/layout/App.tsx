@@ -15,6 +15,7 @@ import BasketPage from '../../features/basket/BasketPage'
 import { useStoreContext } from '../context/StoreContext';
 import agent from '../api/agent';
 import {getCookie} from '../util/util'
+import LoadingComponent from './LoadingComponent';
 
 const App = () => {
 
@@ -28,8 +29,9 @@ const App = () => {
       agent.Basket.get()
             .then(basket=>setBasket(basket))
             .catch(error=>console.log(error))
+            .finally(()=>setLoading(false))
     }  
-  })
+  },[setBasket])
 
   const [darkMode, setDarkMode] = useState(false)
   const paletteType = darkMode ? 'dark' : 'light'
@@ -46,6 +48,8 @@ const App = () => {
 
     setDarkMode(!darkMode)
   }
+
+  if (loading) return <LoadingComponent message='Initialising app...'/>
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,3 +74,4 @@ const App = () => {
   );
 }
 
+export default App
