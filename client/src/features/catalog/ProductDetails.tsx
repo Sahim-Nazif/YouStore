@@ -32,6 +32,13 @@ const ProductDetails = () => {
             .finally(() => setLoading(false))
     }, [id, item])
 
+    const handleInputChange = (event:any)=>{
+        if (event.target.value>0) {
+            setQuantity(parseInt(event.target.value))
+        }
+        
+
+    }
     if (loading) return <LoadingComponent message='Loading product...'/>
     if (!product) return <NotFound/>
     return (
@@ -72,7 +79,7 @@ const ProductDetails = () => {
                 </TableContainer>
                 <Grid container spacing={2}>
                     <Grid item xs={6} >
-                            <TextField variant='outlined' type='number' label='Quantity in Cart'
+                            <TextField onChange={handleInputChange} variant='outlined' type='number' label='Quantity in Cart'
                                         fullWidth value={quantity}/>
                     </Grid>
                     <Grid item xs={6}>
