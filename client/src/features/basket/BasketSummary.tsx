@@ -5,14 +5,8 @@ const BasketSummary=()=> {
     
     const {basket}=useStoreContext()
     const subtotal=basket?.items.reduce((sum, item)=>sum + (item.price *item.quantity),0) ??0
-   
-   let deliveryFee;
-    if (subtotal <=100) {
-
-        deliveryFee=5
-    }else {
-        deliveryFee=0;
-    }
+    const deliveryFee= subtotal > 100 ? 5 : 0
+ 
     const HST= (subtotal+ deliveryFee) * (13/100)
 
     return (
