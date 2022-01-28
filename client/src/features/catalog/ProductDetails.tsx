@@ -33,7 +33,7 @@ const ProductDetails = () => {
     }, [id, item])
 
     const handleInputChange = (event:any)=>{
-        if (event.target.value>0) {
+        if (event.target.value>=0) {
             setQuantity(parseInt(event.target.value))
         }
         
@@ -100,7 +100,9 @@ const ProductDetails = () => {
                                         fullWidth value={quantity}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <LoadingButton loading={submitting} 
+                        <LoadingButton 
+                                        disabled={item?.quantity===quantity || !item && quantity===0}
+                                        loading={submitting} 
                                        onClick={handleUpdateCart} sx={{height:'55px'}} 
                                         color='primary'
                                              size='large' variant='contained' fullWidth>
