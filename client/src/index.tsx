@@ -17,14 +17,11 @@ export const history = createBrowserHistory();
 ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
-      <StoreProvider>
+ 
         <Provider store={store}>
         <App />
         </Provider>
-    
-      </StoreProvider>
-
-    </Router>
+      </Router>
   
   </React.StrictMode>,
   document.getElementById('root')
