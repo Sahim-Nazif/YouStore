@@ -4,7 +4,7 @@ import {createStore} from 'redux'
 import { basketSlice } from '../../features/basket/basketSlice';
 import counterReducer from '../../features/contact/counterReducer';
 import {counterSlice} from '../../features/contact/CounterSlice'
-
+import {catalogSlice} from '../../features/catalog/catalogSlice'
 // export  const  configureStore=()=> {
 
 //     return createStore(counterReducer)
@@ -13,7 +13,8 @@ import {counterSlice} from '../../features/contact/CounterSlice'
 export const store=configureStore({
     reducer:{
         counter:counterSlice.reducer,
-        basket:basketSlice.reducer
+        basket:basketSlice.reducer,
+        catalog:catalogSlice.reducer
     }
 })
 

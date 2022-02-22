@@ -9,10 +9,11 @@ import {StoreProvider} from './app/context/StoreContext'
 
 import { Provider } from 'react-redux';
 import { store } from './app/store/configureStore';
+import { fetchProductAsync } from './features/catalog/catalogSlice';
 
 export const history = createBrowserHistory();
 
-
+store.dispatch(fetchProductAsync())
 
 ReactDOM.render(
   <React.StrictMode>
