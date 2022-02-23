@@ -5,7 +5,7 @@ import { Product } from "../../app/layout/models/product"
 import ProductList from './ProductList'
 import LoadingComponent from "../../app/layout/LoadingComponent"
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore"
-import { fetchProductAsync, productSelectors } from "./catalogSlice"
+import { fetchProductsAsync, productSelectors } from "./catalogSlice"
 
 
 const Catalog = () => {
@@ -20,8 +20,8 @@ const Catalog = () => {
 
     useEffect(() => {
       
-        if (!productsLoaded) dispatch(fetchProductAsync())
-    }, [productsLoaded])
+        if (!productsLoaded) dispatch(fetchProductsAsync())
+    }, [productsLoaded, dispatch])
 
     if (status.includes('pending')) return <LoadingComponent message="Loading products..."/>
 
