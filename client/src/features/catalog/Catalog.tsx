@@ -4,32 +4,32 @@ import { useEffect, useState } from "react"
 import { Product } from "../../app/layout/models/product"
 import ProductList from './ProductList'
 import LoadingComponent from "../../app/layout/LoadingComponent"
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore"
+import { fetchProductAsync, productSelectors } from "./catalogSlice"
 
 
 const Catalog = () => {
     
-    const [products, setProducts] = useState<Product[]>([])
+    const products=useAppSelector(productSelectors.selectAll)
+    const dispatch=useAppDispatch()
+    const {productsLoaded,status}=useAppSelector(state=>state.catalog)
     const [loading, setLoading]=useState(true)
 
    
   
 
     useEffect(() => {
-            agent.Catalog.list().then(products=>setProducts(products))
-                                .catch(error=>console.log(error))
-                                .finally(()=>setLoading(false))
-    }, [])
+      
+        if (!productsLoaded) dispatch(fetchProductAsync())
+    }, [productsLoaded])
 
-    if (loading) return <LoadingComponent message="Loading products..."/>
-    const addProduct = () => {
+    if (status.includes('pending')) return <LoadingComponent message="Loading products..."/>
 
-        setProducts(prevState => [...prevState, { id: + prevState.length + 1, name: 'Why', price: (prevState.length * 12) + 15 }])
-    }
     return (
         <>
           
             <ProductList products={products} />
-            <Button variant='contained' onClick={addProduct}>Add Product</Button>
+         
         </>
     )
 }
