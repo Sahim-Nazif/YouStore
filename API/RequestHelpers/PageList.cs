@@ -18,7 +18,8 @@ namespace API.RequestHelpers
             MetaData = new MetaData
             {
                 TotalCount=count,
-                PageSize=pageNumber,
+                PageSize=pageSize,
+                CurrentPage=pageNumber,
                 TotalPages=(int)Math.Ceiling(count/(double)pageSize)
             };
 
