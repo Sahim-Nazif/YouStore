@@ -9,3 +9,8 @@ export interface Product {
     brand ?: string;
     quantityInStock ?: number;
 }
+
+
+export interface ProductParams {
+    
+}

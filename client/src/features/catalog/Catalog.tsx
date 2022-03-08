@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Paper, Radio, RadioGroup, TextField } from "@mui/material"
+import { Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Pagination, Paper, Radio, RadioGroup, TextField, Typography } from "@mui/material"
 import agent from '../../app/api/agent'
 import { useEffect, useState } from "react"
 import { Product } from "../../app/layout/models/product"
@@ -18,7 +18,7 @@ const Catalog = () => {
 
     const products = useAppSelector(productSelectors.selectAll)
     const dispatch = useAppDispatch()
-    const { productsLoaded, status, filtersLoaded,brands, types } = useAppSelector(state => state.catalog)
+    const { productsLoaded, status, filtersLoaded, brands, types } = useAppSelector(state => state.catalog)
     const [loading, setLoading] = useState(true)
 
 
@@ -59,22 +59,34 @@ const Catalog = () => {
                     </Paper>
                     <Paper>
                         <FormGroup sx={{ mb: 2, p: 2 }}>
-                            {brands.map(brand=>(
-                        <FormControlLabel control={<Checkbox />} label={brand} key={brand} />
+                            {brands.map(brand => (
+                                <FormControlLabel control={<Checkbox />} label={brand} key={brand} />
                             ))}
                         </FormGroup>
                     </Paper>
 
                     <Paper>
                         <FormGroup sx={{ mb: 2, p: 2 }}>
-                            {types.map(type=>(
-                        <FormControlLabel control={<Checkbox />} label={type} key={type} />
+                            {types.map(type => (
+                                <FormControlLabel control={<Checkbox />} label={type} key={type} />
                             ))}
                         </FormGroup>
                     </Paper>
                 </Grid>
                 <Grid item xs={9}>
                     <ProductList products={products} />
+                </Grid>
+
+                <Grid item xs={3} />
+                <Grid item xs={9}>
+                    <Box display='flex' justifyContent='space-between' alignItems='center'>
+                        <Typography>
+                            Displaying 1-6 of 20 items
+                        </Typography>
+                        <Pagination count={10} color="secondary" 
+                                        size='large'
+                                        page={2}/>
+                    </Box>
                 </Grid>
 
             </Grid>
