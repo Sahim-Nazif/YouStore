@@ -5,8 +5,9 @@ import { Product } from "../../app/layout/models/product"
 import ProductList from './ProductList'
 import LoadingComponent from "../../app/layout/LoadingComponent"
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore"
-import { fetchFiltersAsync, fetchProductsAsync, productSelectors } from "./catalogSlice"
+import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice"
 import ProductSearch from "./ProductSearch"
+import RadioButtonGroup from "../../app/components/RadioButtonGroup"
 
 const sortOptions = [
 
@@ -19,7 +20,7 @@ const Catalog = () => {
 
     const products = useAppSelector(productSelectors.selectAll)
     const dispatch = useAppDispatch()
-    const { productsLoaded, status, filtersLoaded, brands, types } = useAppSelector(state => state.catalog)
+    const { productsLoaded, status, filtersLoaded, brands, types,productParams } = useAppSelector(state => state.catalog)
     const [loading, setLoading] = useState(true)
 
 
@@ -45,14 +46,12 @@ const Catalog = () => {
                      <ProductSearch/>
                     </Paper>
                     <Paper sx={{ mb: 2, p: 2 }}>
-                        <FormControl>
+                       <RadioButtonGroup
 
-                            <RadioGroup>
-                                {sortOptions.map(({ value, label }) => (
-                                    <FormControlLabel value={value} control={<Radio />} label={label} key={value} />
-                                ))}
-                            </RadioGroup>
-                        </FormControl>
+                        selectedValue={productParams.orderBy}
+                        options={sortOptions}
+                        onChange={(e)=>dispatch(setProductParams({orderBy:e.target.value}))}
+                       />
                     </Paper>
                     <Paper>
                         <FormGroup sx={{ mb: 2, p: 2 }}>
