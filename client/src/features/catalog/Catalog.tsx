@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../app/store/configureStore"
 import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice"
 import ProductSearch from "./ProductSearch"
 import RadioButtonGroup from "../../app/components/RadioButtonGroup"
+import CheckBoxButtons from "../../app/components/CheckBoxButtons"
 
 const sortOptions = [
 
@@ -54,19 +55,17 @@ const Catalog = () => {
                        />
                     </Paper>
                     <Paper>
-                        <FormGroup sx={{ mb: 2, p: 2 }}>
-                            {brands.map(brand => (
-                                <FormControlLabel control={<Checkbox />} label={brand} key={brand} />
-                            ))}
-                        </FormGroup>
+                      <CheckBoxButtons 
+                        items={brands}
+                        checked={productParams.brands}
+                        onChange={(items:string[])=> dispatch(setProductParams({brands:items}))} />
                     </Paper>
 
                     <Paper>
-                        <FormGroup sx={{ mb: 2, p: 2 }}>
-                            {types.map(type => (
-                                <FormControlLabel control={<Checkbox />} label={type} key={type} />
-                            ))}
-                        </FormGroup>
+                    <CheckBoxButtons 
+                        items={types}
+                        checked={productParams.types}
+                        onChange={(items:string[])=> dispatch(setProductParams({types:items}))} />
                     </Paper>
                 </Grid>
                 <Grid item xs={9}>
