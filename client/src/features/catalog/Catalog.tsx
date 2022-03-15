@@ -38,7 +38,7 @@ const Catalog = () => {
     }, [dispatch, filtersLoaded])
 
 
-    // if (status.includes('pending') || !metadata) return <LoadingComponent message="Loading products..." />
+     if (!filtersLoaded) return <LoadingComponent message="Loading products..." />
 
     return (
         <>
@@ -77,7 +77,7 @@ const Catalog = () => {
                 <Grid item xs={9} sx={{mb:2}}>
                 {metadata &&
                <AppPagination
-                metaData={metadata}
+               metaData={metadata}
                 onPageChange={(page:number)=>dispatch(setPageNumber({ pageNumber:page}))}
                     />}
                 </Grid>
