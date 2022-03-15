@@ -5,7 +5,7 @@ import { Product } from "../../app/layout/models/product"
 import ProductList from './ProductList'
 import LoadingComponent from "../../app/layout/LoadingComponent"
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore"
-import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice"
+import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setPageNumber, setProductParams } from "./catalogSlice"
 import ProductSearch from "./ProductSearch"
 import RadioButtonGroup from "../../app/components/RadioButtonGroup"
 import CheckBoxButtons from "../../app/components/CheckBoxButtons"
@@ -38,7 +38,7 @@ const Catalog = () => {
     }, [dispatch, filtersLoaded])
 
 
-    if (status.includes('pending') || !metadata) return <LoadingComponent message="Loading products..." />
+    // if (status.includes('pending') || !metadata) return <LoadingComponent message="Loading products..." />
 
     return (
         <>
@@ -75,10 +75,11 @@ const Catalog = () => {
 
                 <Grid item xs={3} />
                 <Grid item xs={9} sx={{mb:2}}>
+                {metadata &&
                <AppPagination
                 metaData={metadata}
-                onPageChange={(page:number)=>dispatch(setProductParams({ pageNumber:page}))}
-                    />
+                onPageChange={(page:number)=>dispatch(setPageNumber({ pageNumber:page}))}
+                    />}
                 </Grid>
 
             </Grid>
