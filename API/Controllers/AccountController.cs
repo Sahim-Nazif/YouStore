@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,9 +19,15 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login() 
+        public async Task<ActionResult<User>> Login(LoginDto loginDto) 
         {
-            
+            var user= await _userManager.FindByNameAsync(loginDto.Username);
+            if (user ==null ||  !await _userManager.CheckPasswordAsync(user, loginDto.Password))
+            return Unauthorized();
+
+            return user;
+
         }
+
     }
 }
