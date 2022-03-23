@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -39,6 +40,16 @@ namespace API.Services
             }
 
             var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWTSettings:TokenKey"]));
+            var creds= new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+
+            var tokenOptions= new JwtSecurityToken(
+                issuer:null,
+                audience:null,
+                claims:claims,
+                expires:DateTime.Now.AddDays(7),
+                signingCredentials:creds
+            );
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
     }
 }
