@@ -18,6 +18,8 @@ import LoadingComponent from './LoadingComponent';
 import CheckoutPage from '../../features/checkout/CheckoutPage'
 import { useAppDispatch } from '../store/configureStore';
 import { setBasket } from '../../features/basket/basketSlice';
+import Login from '../components/Login'
+import Register from '../components/Register'
 
 
 const App = () => {
@@ -71,6 +73,8 @@ const App = () => {
           <Route exact path='/server-error' component={ServerError} />
           <Route exact path='/basket' component={BasketPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
           <Route component={NotFound} />
         </Switch>
       </Container>

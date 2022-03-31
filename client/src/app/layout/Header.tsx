@@ -16,7 +16,7 @@ const midLinks=[
 ]
 const rightLinks=[
     {title:'login', path:'/login'},
-    {title:'Signup', path:'/signup'}
+    {title:'Signup', path:'/register'}
 ]
 const Header = ({darkMode, handleThemeChange}:Props) => {
 
