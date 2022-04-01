@@ -19,11 +19,16 @@ const theme = createTheme();
 
 const Login=()=> {
 
-  const {register, handleSubmit, formState:{isSubmitting}}=useForm()
+  const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm()
 
   const  submitForm=async(data:FieldValues)=>{
 
-    await agent.Account.login(data)    
+    try{
+      await agent.Account.login(data)    
+    }catch(error){
+      console.log(error)
+    }
+  
   }
  
   return (
@@ -43,7 +48,9 @@ const Login=()=> {
               label="Username"
               autoComplete="email"
               autoFocus
-              {...register('username')}
+              {...register('username', {required:'Username is required'})}
+              error={!!errors.username}
+              helperText={errors?.username?.message}
             />
             <TextField
               margin="normal"
@@ -51,7 +58,9 @@ const Login=()=> {
               label="Password"
               type="password"
               autoComplete="current-password"
-              {...register('password')}
+              {...register('password', {required:'Password is required'})}
+              error={!!errors.password}
+              helperText={errors?.password?.message}
             />
         
             <LoadingButton loading={isSubmitting}
