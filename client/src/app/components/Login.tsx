@@ -19,7 +19,10 @@ const theme = createTheme();
 
 const Login=()=> {
 
-  const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm()
+  const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm({
+
+    mode:'onTouched'
+  })
 
   const  submitForm=async(data:FieldValues)=>{
 
@@ -64,6 +67,7 @@ const Login=()=> {
             />
         
             <LoadingButton loading={isSubmitting}
+            disabled={!isValid}
               type="submit"
               fullWidth
               variant="contained"
