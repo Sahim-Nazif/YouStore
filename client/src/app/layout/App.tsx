@@ -18,8 +18,8 @@ import LoadingComponent from './LoadingComponent';
 import CheckoutPage from '../../features/checkout/CheckoutPage'
 import { useAppDispatch } from '../store/configureStore';
 import { setBasket } from '../../features/basket/basketSlice';
-import Login from '../components/Login'
-import Register from '../components/Register'
+import Login from '../../features/account/Login'
+import Register from '../../features/account/Register'
 
 
 const App = () => {
