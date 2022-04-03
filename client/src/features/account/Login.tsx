@@ -1,6 +1,4 @@
-import {useState}from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -9,28 +7,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import agent from '../../app/api/agent';
 import { FieldValues, useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
+import { useAppDispatch } from '../../app/store/configureStore';
+import { signInUser } from './accountSlice';
 
 
 const theme = createTheme();
 
 const Login=()=> {
 
+  const history=useHistory()
+  const dispatch=useAppDispatch()
   const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm({
 
-    mode:'onTouched'
+    mode:'all'
   })
 
   const  submitForm=async(data:FieldValues)=>{
 
-    try{
-      await agent.Account.login(data)    
-    }catch(error){
-      console.log(error)
-    }
+    await dispatch(signInUser(data))
+    history.push('/catalog')
   
   }
  
