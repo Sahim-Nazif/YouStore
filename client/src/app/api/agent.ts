@@ -42,7 +42,7 @@ axios.interceptors.response.use(async response=>{
                 toast.error(data.title)
                 break;
         case 500:
-            toast.error(data.title)
+            toast.error(data.title || 'Unauthorized')
             history.push({
                 pathname:'/server-error',
                 state:{error:data}
