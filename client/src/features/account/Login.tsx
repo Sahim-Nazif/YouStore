@@ -15,7 +15,6 @@ import { useAppDispatch } from '../../app/store/configureStore';
 import { signInUser } from './accountSlice';
 
 
-const theme = createTheme();
 
 const Login=()=> {
 
@@ -34,8 +33,7 @@ const Login=()=> {
   }
  
   return (
-    <ThemeProvider theme={theme}>
-      <Container component={Paper} maxWidth="sm" sx={{display:'flex',
+         <Container component={Paper} maxWidth="sm" sx={{display:'flex',
                  flexDirection:'column', alignItems:'center', p:4}}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -86,7 +84,7 @@ const Login=()=> {
   
     
       </Container>
-    </ThemeProvider>
+  
   );
 }
 
