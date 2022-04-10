@@ -5,21 +5,21 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Paper } from '@mui/material';
+import { Alert,AlertTitle, List, ListItem,Paper,ListItemText } from '@mui/material';
 import { Link, useHistory } from 'react-router-dom';
 import agent from '../../app/api/agent';
 import { FieldValues, useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { useAppDispatch } from '../../app/store/configureStore';
-
-
+import { useState } from 'react';
 
 const Register=()=> {
 
  // const history=useHistory()
- 
+ const [validationErrors, setValidationErrors]=useState([])
 
-  const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm({
+
+ const {register, handleSubmit, formState:{isSubmitting,errors,isValid}}=useForm({
 
     mode:'all'
   })
@@ -33,7 +33,8 @@ const Register=()=> {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit((data)=>agent.Account.register(data))} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit((data)=>
+                                          agent.Account.register(data).catch(error=>setValidationErrors(error)))} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               fullWidth
@@ -63,7 +64,17 @@ const Register=()=> {
               error={!!errors.password}
               helperText={errors?.password?.message}
             />
-        
+           {validationErrors.length>0 &&  
+                <Alert severity='error'>
+                    <AlertTitle>Validation Errors</AlertTitle>
+                    <List>
+                        {validationErrors.map(error=>(
+                            <ListItem key={error}>
+                                <ListItemText>{error}</ListItemText>
+                            </ListItem>
+                        ))}
+                    </List>
+                    </Alert>}
             <LoadingButton loading={isSubmitting}
             disabled={!isValid}
               type="submit"
