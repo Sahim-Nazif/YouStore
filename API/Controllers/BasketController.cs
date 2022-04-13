@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet(Name="GetBasket")]
         public async Task<ActionResult<BasketDto>> GetBasket()
         {
-            var basket = await RetrieveBasket();
+            var basket = await RetrieveBasket(GetBuyerId());
 
             if (basket == null)
             {
@@ -38,7 +38,7 @@ namespace API.Controllers
         public async Task<ActionResult<BasketDto>> AddItemToBasket(int productId, int quantity)
         {
 
-            var basket=await RetrieveBasket();
+            var basket=await RetrieveBasket(GetBuyerId());
             if (basket==null) basket=CreateBasket();
             var product=await _context.products.FindAsync(productId);
             if (product==null) return BadRequest(new ProblemDetails{Title="Product Not Found"});
@@ -53,7 +53,7 @@ namespace API.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveBasetItem(int productId, int quantity)
         {
-            var basket=await RetrieveBasket();
+            var basket=await RetrieveBasket(GetBuyerId());
             if ( basket==null) return NotFound();
 
             basket.RemoveItem(productId, quantity);
@@ -61,12 +61,22 @@ namespace API.Controllers
              if (result) return Ok();
              return BadRequest(new ProblemDetails{Title="Could not remove item from the basket"});
         }
-        private async Task<Basket> RetrieveBasket()
+        private async Task<Basket> RetrieveBasket(string buyderId)
         {
+            if (string.IsNullOrEmpty(buyderId))
+             {
+                 Response.Cookies.Delete("buyerId");
+                 return null;
+            }
             return await _context.Baskets
                          .Include(i => i.Items)
                          .ThenInclude(p => p.Product)
                          .FirstOrDefaultAsync(x => x.BuyerId == Request.Cookies["BuyerId"]);
+        }
+
+        private string GetBuyerId()
+        {
+            return User.Identity?.Name ?? Request.Cookies["buyerId"];
         }
  private BasketDto MapBasketToDto(Basket basket)
         {
