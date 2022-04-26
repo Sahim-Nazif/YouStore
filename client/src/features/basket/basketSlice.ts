@@ -61,6 +61,7 @@ export const basketSlice=createSlice({
     reducers:{
         setBasket:(state, action)=>{
             state.basket=action.payload
+           
         },
 
         clearBasket:(state)=>{
@@ -71,9 +72,10 @@ export const basketSlice=createSlice({
     extraReducers:(builder=>{
         builder.addCase(addBasketItemAsync.pending, (state, action)=>{
             console.log(action)
+            
             state.status='pendingAddItem' + action.meta.arg.productId;
         });
-  
+       
         builder.addCase(removeBasketItemAsync.pending, (state, action)=>{
             state.status='pendingRemoveItem' + action.meta.arg.productId + action.meta.arg.name
         })
