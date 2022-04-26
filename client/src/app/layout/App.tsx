@@ -21,6 +21,7 @@ import { fetchBasketAsync, setBasket } from '../../features/basket/basketSlice';
 import Login from '../../features/account/Login'
 import Register from '../../features/account/Register'
 import { fetchCurrentUser } from '../../features/account/accountSlice';
+import PrivateRoute from './PrivateRoutes';
 
 
 const App = () => {
@@ -75,7 +76,7 @@ const App = () => {
           <Route exact path='/contact' component={ContactPage} />
           <Route exact path='/server-error' component={ServerError} />
           <Route exact path='/basket' component={BasketPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <PrivateRoute exact path='/checkout' component={CheckoutPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <Route component={NotFound} />
