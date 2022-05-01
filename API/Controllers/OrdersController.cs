@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,14 @@ namespace API.Controllers
                         .Include(o=>o.orderItems)
                         .Where(x=>x.BuyerId==User.Identity.Name)
                         .ToListAsync();
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>>GetOrder (int id)
+        {
+            return await _context.orders
+                        .Include(x=>x.orderItems)
+                        .Where(x=>x.BuyerId==User.Identity.Name && x.Id==id)
+                        .FirstOrDefaultAsync();
         }
     }
 }
