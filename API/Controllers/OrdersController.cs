@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTOs;
 using API.Entities.OrderAggregate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +37,12 @@ namespace API.Controllers
                         .Include(x=>x.orderItems)
                         .Where(x=>x.BuyerId==User.Identity.Name && x.Id==id)
                         .FirstOrDefaultAsync();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto orderDto)
+        {
+            var basket= await _context.Baskets
         }
     }
 }
